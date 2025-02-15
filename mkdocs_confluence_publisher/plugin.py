@@ -16,6 +16,7 @@ from .types import MD_to_Page
 class ConfluencePublisherPlugin(BasePlugin):
     config_scheme = (
         ('confluence_prefix', config_options.Type(str, default='')),
+        ('confluence_suffix', config_options.Type(str, default='')),
         ('space_key', config_options.Type(str, required=True)),
         ('parent_page_id', config_options.Type(int, required=True)),
     )
@@ -39,11 +40,12 @@ class ConfluencePublisherPlugin(BasePlugin):
 
     def on_nav(self, nav, config, files):
         prefix = self.config['confluence_prefix']
+        sufix = self.config['confluence_suffix']
         space_key = self.config['space_key']
         parent_page_id = self.config['parent_page_id']
         self.logger.info(
             f"Ensuring pages exist in Confluence with prefix '{prefix}' under parent {parent_page_id} in space: '{space_key}'")
-        self.md_to_page = create_pages(self.confluence, nav.items, prefix, space_key, parent_page_id,
+        self.md_to_page = create_pages(self.confluence, nav.items, prefix, suffix, space_key, parent_page_id,
                                           self.md_to_page)
         self.logger.debug(f"URL to Page ID mapping: {self.md_to_page}")
 
