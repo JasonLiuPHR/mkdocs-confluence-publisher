@@ -25,6 +25,7 @@ Add the following to your `mkdocs.yml`:
 plugins:
   - confluence-publisher:
       confluence_prefix: "MkDocs - "  # Optional: Prefix for page titles in Confluence
+      confluence_suffix: " - MkDocs"  # Optional: Suffix for page titles in Confluence
       space_key: "YOUR_SPACE_KEY"     # Required: Confluence space key
       parent_page_id: 123456          # Required: ID of the parent page in Confluence
 ```
