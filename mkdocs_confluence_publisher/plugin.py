@@ -40,7 +40,7 @@ class ConfluencePublisherPlugin(BasePlugin):
 
     def on_nav(self, nav, config, files):
         prefix = self.config['confluence_prefix']
-        sufix = self.config['confluence_suffix']
+        suffix = self.config['confluence_suffix']
         space_key = self.config['space_key']
         parent_page_id = self.config['parent_page_id']
         self.logger.info(
