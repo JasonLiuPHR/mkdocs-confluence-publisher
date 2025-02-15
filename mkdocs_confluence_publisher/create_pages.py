@@ -4,9 +4,9 @@ from .types import MD_to_Page, ConfluencePage
 
 logger = logging.getLogger('mkdocs.plugins.confluence_publisher.create_pages')
 
-def create_pages(confluence, items, prefix, space_key, parent_id, md_to_page: MD_to_Page):
+def create_pages(confluence, items, prefix, suffix, space_key, parent_id, md_to_page: MD_to_Page):
     for item in items:
-        page_title = f"{prefix}{item.title}"
+        page_title = f"{prefix}{item.title}{suffix}"
         logger.debug(f"Processing item: {page_title}")
 
         # Check if the page already exists
