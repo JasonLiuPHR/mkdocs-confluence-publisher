@@ -44,6 +44,6 @@ def create_pages(confluence, items, prefix, suffix, space_key, parent_id, md_to_
         # If it's a "Section", recursively create child pages
         if isinstance(item, Section) and item.children:
             logger.debug(f"Processing children of {page_title}")
-            create_pages(confluence, item.children, prefix, space_key, page_id, md_to_page)
+            create_pages(confluence, item.children, prefix, suffix, space_key, page_id, md_to_page)
 
     return md_to_page
