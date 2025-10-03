@@ -4,9 +4,9 @@ from .types import MD_to_Page, ConfluencePage
 
 logger = logging.getLogger('mkdocs.plugins.confluence_publisher.create_pages')
 
-def create_pages(confluence, items, prefix, space_key, parent_id, md_to_page: MD_to_Page):
+def create_pages(confluence, items, prefix, suffix, space_key, parent_id, md_to_page: MD_to_Page):
     for item in items:
-        page_title = f"{prefix}{item.title}"
+        page_title = f"{prefix}{item.title}{suffix}"
         logger.debug(f"Processing item: {page_title}")
 
         # Check if the page already exists
@@ -44,6 +44,6 @@ def create_pages(confluence, items, prefix, space_key, parent_id, md_to_page: MD
         # If it's a "Section", recursively create child pages
         if isinstance(item, Section) and item.children:
             logger.debug(f"Processing children of {page_title}")
-            create_pages(confluence, item.children, prefix, space_key, page_id, md_to_page)
+            create_pages(confluence, item.children, prefix, suffix, space_key, page_id, md_to_page)
 
     return md_to_page
