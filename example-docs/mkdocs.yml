@@ -1,0 +1,18 @@
+site_name: MkDocs Confluence Publisher Example
+site_url: http://localhost:8000
+
+nav:
+  - 'Home': 'index.md'
+  - 'Page 1': 'page1.md'
+  - 'Page 2': 'page2.md'
+  - '...'
+
+plugins:
+  - search
+  - awesome-pages
+  - mermaid2
+  - confluence-publisher:
+      confluence_prefix: 'Example Project |'
+      confluence_suffix: '| Suffix'
+      space_key: !ENV [CONFLUENCE_SPACE_KEY, '']
+      parent_page_id: !ENV [CONFLUENCE_PARENT_PAGE_ID, '']
