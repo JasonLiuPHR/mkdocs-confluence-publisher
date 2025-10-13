@@ -29,6 +29,12 @@ class ConfluencePublisherPlugin(BasePlugin):
         self.page_attachments: Dict[str, List[str]] = {}
 
     def on_config(self, config):
+        if os.environ.get('CONFLUENCE_PUBLISH_DISABLED', 'false').lower() == 'true':
+            self.logger.info("Confluence publish is disabled")
+            self.enabled = False
+            return config
+
+        self.enabled = True
         self.logger.debug("Initializing Confluence connection")
         self.confluence = Confluence(
             url=os.environ.get('CONFLUENCE_URL'),
@@ -39,6 +45,9 @@ class ConfluencePublisherPlugin(BasePlugin):
         return config
 
     def on_nav(self, nav, config, files):
+        if not self.enabled:
+            return
+
         prefix = self.config['confluence_prefix']
         suffix = self.config['confluence_suffix']
         space_key = self.config['space_key']
@@ -50,6 +59,9 @@ class ConfluencePublisherPlugin(BasePlugin):
         self.logger.debug(f"URL to Page ID mapping: {self.md_to_page}")
 
     def on_page_markdown(self, markdown, page: Page, config, files):
+        if not self.enabled:
+            return markdown
+
         self.logger.debug(f"Processing markdown for page: {page.file.src_path}")
         attachments = update_page(markdown, page, self.confluence, self.md_to_page)
         self.page_attachments[page.file.src_path] = attachments
@@ -57,6 +69,9 @@ class ConfluencePublisherPlugin(BasePlugin):
         return markdown
 
     def on_post_page(self, output, page, config):
+        if not self.enabled:
+            return output
+
         page_id = self.md_to_page.get(page.file.src_path).id
         attachments = self.page_attachments.get(page.file.src_path, [])
         self.logger.debug(f"Uploading attachments {attachments} for page: {page.file.src_path}, Page ID: {page_id}")
@@ -65,4 +80,7 @@ class ConfluencePublisherPlugin(BasePlugin):
         return output
 
     def on_post_build(self, config):
+        if not self.enabled:
+            return
+
         self.logger.info("Publish to confluence complete")

@@ -7,4 +7,5 @@
 pip install -e ..
 
 # Run the mkdocs build
+export CONFLUENCE_PUBLISH_DISABLED=true
 mkdocs build
