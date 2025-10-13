@@ -22,6 +22,7 @@ jobs:
       - name: Build example project
         run: |
           cd example-docs
+          export CONFLUENCE_PUBLISH_DISABLED=true
           mkdocs build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
