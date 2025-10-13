@@ -33,9 +33,11 @@ check_env_var "CONFLUENCE_API_TOKEN"
 check_env_var "CONFLUENCE_SPACE_KEY"
 check_env_var "CONFLUENCE_PARENT_PAGE_ID"
 
-# Install the plugin in editable mode
-echo "Installing the plugin in editable mode..."
-pip install -e .. > /dev/null
+# Install the plugin in editable mode if not already installed
+if ! pip list | grep -q "mkdocs-confluence-publisher"; then
+  echo "Installing the plugin in editable mode..."
+  pip install -e .. > /dev/null
+fi
 
 # Run the mkdocs build
 echo "Running mkdocs build..."
