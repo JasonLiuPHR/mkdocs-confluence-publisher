@@ -30,6 +30,8 @@ fi
 check_env_var "CONFLUENCE_URL"
 check_env_var "CONFLUENCE_USERNAME"
 check_env_var "CONFLUENCE_API_TOKEN"
+check_env_var "CONFLUENCE_SPACE_KEY"
+check_env_var "CONFLUENCE_PARENT_PAGE_ID"
 
 # Install the plugin in editable mode
 echo "Installing the plugin in editable mode..."
