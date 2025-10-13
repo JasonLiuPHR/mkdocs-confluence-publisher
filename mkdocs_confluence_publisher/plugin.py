@@ -18,7 +18,7 @@ class ConfluencePublisherPlugin(BasePlugin):
         ('confluence_prefix', config_options.Type(str, default='')),
         ('confluence_suffix', config_options.Type(str, default='')),
         ('space_key', config_options.Type(str, required=True)),
-        ('parent_page_id', config_options.Type(int, required=True)),
+        ('parent_page_id', config_options.OptionallyRequired()),
     )
 
     def __init__(self):
@@ -51,7 +51,25 @@ class ConfluencePublisherPlugin(BasePlugin):
         prefix = self.config['confluence_prefix']
         suffix = self.config['confluence_suffix']
         space_key = self.config['space_key']
-        parent_page_id = int(self.config['parent_page_id'])
+        parent_raw = self.config.get('parent_page_id')
+
+        if not parent_raw:
+            self.logger.error(
+                "confluence-publisher: 'parent_page_id' is not set. "
+                "Set it in mkdocs.yml or via CONFLUENCE_PARENT_PAGE_ID environment variable. "
+                "The plugin will be disabled.")
+            self.enabled = False
+            return
+
+        try:
+            parent_page_id = int(parent_raw)
+        except (TypeError, ValueError):
+            self.logger.error(
+                "confluence-publisher: invalid 'parent_page_id' value: %r. Must be an integer. The plugin will be disabled.",
+                parent_raw)
+            self.enabled = False
+            return
+
         self.logger.info(
             f"Ensuring pages exist in Confluence with prefix '{prefix}' under parent {parent_page_id} in space: '{space_key}'")
         self.md_to_page = create_pages(self.confluence, nav.items, prefix, suffix, space_key, parent_page_id,
