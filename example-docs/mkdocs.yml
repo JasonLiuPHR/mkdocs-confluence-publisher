@@ -6,14 +6,15 @@ nav:
   - 'Page 1': 'page1.md'
   - 'Page 2': 'page2.md'
   - 'Sub-pages':
-    - 'Index': 'sub-pages/index.md'
-    - 'Sub-page 1': 'sub-pages/sub-page1.md'
-    - 'Sub-page 2': 'sub-pages/sub-page2.md'
+    - '...':
+      - 'sub-pages/index.md'
+      - 'sub-pages/sub-page1.md'
+      - 'sub-pages/sub-page2.md'
 
 plugins:
   - search
+  - awesome-pages
+  - mermaid2
   - confluence_publisher:
       confluence_prefix: 'Example Project |'
       confluence_suffix: '| Suffix'
-      space_key: 'SPACEKEY'
-      parent_page_id: 123456
