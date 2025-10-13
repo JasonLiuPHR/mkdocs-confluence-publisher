@@ -27,6 +27,10 @@ jobs:
           pip install -r requirements.txt
           pip install -e .
 
+      - name: Test with pytest
+        run: |
+          pytest
+
       - name: Build package
         run: |
           pip install build
