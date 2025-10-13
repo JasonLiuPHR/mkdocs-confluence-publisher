@@ -4,8 +4,8 @@
 # development version of the mkdocs-confluence-publisher plugin.
 
 # --- Configuration ---
-# The script will automatically use a `.env` file in the project root if it exists.
-ENV_FILE="../.env"
+# The script will automatically use a `.env` file in this directory if it exists.
+ENV_FILE=".env"
 
 # --- Functions ---
 function check_env_var() {
