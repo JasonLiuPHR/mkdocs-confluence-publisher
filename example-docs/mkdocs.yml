@@ -15,7 +15,7 @@ plugins:
   - search
   - awesome-pages
   - mermaid2
-  - confluence_publisher:
+  - confluence-publisher:
       confluence_prefix: 'Example Project |'
       confluence_suffix: '| Suffix'
       space_key: !ENV [CONFLUENCE_SPACE_KEY, '']

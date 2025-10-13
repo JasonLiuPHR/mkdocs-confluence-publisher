@@ -51,7 +51,7 @@ class ConfluencePublisherPlugin(BasePlugin):
         prefix = self.config['confluence_prefix']
         suffix = self.config['confluence_suffix']
         space_key = self.config['space_key']
-        parent_page_id = self.config['parent_page_id']
+        parent_page_id = int(self.config['parent_page_id'])
         self.logger.info(
             f"Ensuring pages exist in Confluence with prefix '{prefix}' under parent {parent_page_id} in space: '{space_key}'")
         self.md_to_page = create_pages(self.confluence, nav.items, prefix, suffix, space_key, parent_page_id,
