@@ -6,7 +6,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='mkdocs-confluence-publisher',
-    version='0.1.2',
+    version='0.2.0',
     packages=find_packages(exclude=['tests*']),
     install_requires=[
         'mkdocs>=1.0',
